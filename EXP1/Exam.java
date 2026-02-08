@@ -1,0 +1,93 @@
+abstract class Identity {
+    abstract void verifyI();
+}
+abstract class Environment {
+    abstract void checkE();
+}
+abstract class Behaviour {
+    abstract void monitorB();
+}
+class HumanI extends Identity {
+    void verifyI() {
+        System.out.println("Human Id Verification");
+    }
+}
+class AIIdentity extends Identity {
+    void verifyI() {
+        System.out.println("AI Id Verification");
+    }
+}
+
+class BiometricI extends Identity {
+    void verifyI() {
+        System.out.println("Biometric Id Verification");
+    }
+}
+class HumanE extends Environment {
+    void checkE() {
+        System.out.println("Human Env Check");
+    }
+}
+
+class AIE extends Environment {
+    void checkE() {
+        System.out.println("AI Env Check");
+    }
+}
+class HumanB extends Behaviour {
+    void monitorB() {
+        System.out.println("Human Monitoring Behaviour");
+    }
+}
+
+class AIB extends Behaviour {  
+    void monitorB() {
+        System.out.println("AI Monitoring Behaviour");
+    }
+}
+
+class Proctor {
+    private Identity idv;
+    private Environment envcheck;
+    private Behaviour behavm;
+
+    public Proctor(Identity iv, Environment ev, Behaviour bm) {
+        this.idv = iv;
+        this.envcheck = ev;
+        this.behavm = bm;
+    }
+
+    public void runExam() {
+        if (idv != null) idv.verifyI();
+        if (envcheck != null) envcheck.checkE(); 
+        if (behavm != null) behavm.monitorB();   
+    }
+}
+public class Exam {
+    public static void main(String[] args) {
+        Proctor exam1 = new Proctor(
+            new BiometricI(),
+            new AIE(),
+            new HumanB()
+        );
+        System.out.println("Exam 1:");
+        exam1.runExam();
+
+        Proctor exam2 = new Proctor(
+            new HumanI(),
+            null,
+            null
+        );
+        System.out.println("Exam 2:");
+        exam2.runExam();
+
+        Proctor exam3 = new Proctor(
+            new AIIdentity(),
+            new HumanE(),
+            new AIB()
+        );
+        System.out.println("Exam 3:");
+        exam3.runExam();
+
+    }
+}
